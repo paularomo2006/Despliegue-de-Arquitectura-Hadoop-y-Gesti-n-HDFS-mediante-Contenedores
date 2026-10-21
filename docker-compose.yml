@@ -1,0 +1,71 @@
+services:
+  namenode:
+    image: bde2020/hadoop-namenode:2.0.0-hadoop3.2.1-java8
+    container_name: namenode
+    platform: linux/amd64 # Garantiza compatibilidad entre procesadores ARM (Mac) y x86 (Windows)
+    ports:
+      - "9870:9870"
+      - "9000:9000"
+    environment:
+      - CLUSTER_NAME=cluster_epn
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_net
+
+  datanode:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode
+    platform: linux/amd64
+    depends_on:
+      - namenode
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_net
+
+  datanode_romo:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode_romo
+    platform: linux/amd64
+    depends_on:
+      - namenode
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_net
+
+  datanode_penaloza:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode_penaloza
+    platform: linux/amd64
+    depends_on:
+      - namenode
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_net
+
+  datanode_guanocunga:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode_guanocunga
+    platform: linux/amd64
+    depends_on:
+      - namenode
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_net
+  datanode_tituana:
+    image: bde2020/hadoop-datanode:2.0.0-hadoop3.2.1-java8
+    container_name: datanode_tituana
+    platform: linux/amd64
+    depends_on:
+      - namenode
+    env_file:
+      - ./hadoop.env
+    networks:
+      - hadoop_net
+networks:
+  hadoop_net:
+    driver: bridge
